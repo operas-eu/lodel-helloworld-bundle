@@ -4,4 +4,10 @@ services:
         autoconfigure: false # Modify this if necessary to enable autoconfiguration for services
         public: false # Modify this if necessary to change service visibility
 
-    Lodel\HelloWorldBundle\Service\HelloWorld: ~ # Modify or remove this example service as needed for your own services
+    # Definition for the HelloWorldSubscriber service
+    Lodel\HelloWorldBundle\EventSubscriber\HelloWorldSubscriber:
+        arguments:
+            $twig: '@twig'  # Injecting the Twig service
+            $router: '@router'  # Injecting the Router service
+        tags:
+            - { name: 'kernel.event_subscriber' } # Tags this service as an event subscriber, so Symfony knows to register it for events.
