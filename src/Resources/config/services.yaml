@@ -4,4 +4,9 @@ services:
         autoconfigure: false # Modify this if necessary to enable autoconfiguration for services
         public: false # Modify this if necessary to change service visibility
 
-    Lodel\HelloWorldBundle\Service\HelloWorld: ~ # Modify or remove this example service as needed for your own services
+    # Definition for the ToggleModeButtonExtension service
+    Lodel\HelloWorldBundle\Twig\ToggleModeButtonExtension:
+        arguments:
+            $twig: '@twig' # Inject the Twig service into the extension, which is required for rendering the toggle button template.
+        tags:
+            - { name: 'twig.extension' } # This tag tells Symfony to register this service as a Twig extension.

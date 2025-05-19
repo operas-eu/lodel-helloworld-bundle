@@ -1,6 +1,6 @@
 {
     "name": "lodel/lodel-helloworld-bundle",
-    "description": "Lodel HelloWorld Bundle",
+    "description": "Lodel Hello World Bundle",
     "type": "symfony-bundle",
     "license": "proprietary",
     "minimum-stability": "dev",

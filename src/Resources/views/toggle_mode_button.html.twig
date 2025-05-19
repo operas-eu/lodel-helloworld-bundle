@@ -1,0 +1,59 @@
+{# Button to toggle between dark and light mode #}
+<button id="toggle-mode-button">
+    Dark Mode
+</button>
+
+{# CSS for dark/light mode styling #}
+<style>
+    body.light {
+        background-color: white;
+        color: black;
+    }
+
+    body.dark {
+        background-color: black;
+        color: white;
+    }
+
+    #toggle-mode-button {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+{# Script for toggling between dark and light mode #}
+<script>
+    // Wait for the DOM to be fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('toggle-mode-button');
+
+        // Function to get the current mode from the cookie (default is 'light' if no cookie exists)
+        const getCurrentMode = () => {
+            const currentModeCookie = document.cookie.split('; ').find(row => row.startsWith('mode='));
+            return currentModeCookie ? currentModeCookie.split('=')[1] : 'light'; // Default to 'light' mode if no cookie
+        };
+
+        // Get the current mode (either 'dark' or 'light') and apply it to the body element
+        let currentMode = getCurrentMode();
+        document.body.classList.add(currentMode);
+
+        // Change the button text based on the current mode
+        button.innerText = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+        // Add an event listener for the button click to toggle between modes
+        button.addEventListener('click', () => {
+            // Toggle the current mode between 'dark' and 'light'
+            currentMode = currentMode === 'dark' ? 'light' : 'dark';
+
+            // Remove the old mode class and add the new mode class to the body
+            document.body.classList.remove(currentMode === 'dark' ? 'light' : 'dark');
+            document.body.classList.add(currentMode);
+
+            // Store the current mode in a cookie to persist the preference
+            document.cookie = "mode=" + currentMode + ";path=/";
+
+            // Update the button text based on the current mode
+            button.innerText = currentMode === 'dark' ? 'Light Mode' : 'Dark Mode';
+        });
+    });
+</script>
