@@ -4,4 +4,17 @@ services:
         autoconfigure: false # Modify this if necessary to enable autoconfiguration for services
         public: false # Modify this if necessary to change service visibility
 
-    Lodel\HelloWorldBundle\Service\HelloWorld: ~ # Modify or remove this example service as needed for your own services
+    # Registers the form type extension that enhances UserFormType.
+    Lodel\HelloWorldBundle\Form\UserFormTypeExtension:
+        arguments:
+            # Injects the custom event subscriber as a constructor argument
+            $subscriber: '@Lodel\HelloWorldBundle\EventSubscriber\UserFormSubmitSubscriber'
+        tags:
+            # This tag tells Symfony that the service is a form type extension.
+            - { name: 'form.type_extension' }
+
+    # Registers the event subscriber that listens to form submission events.
+    Lodel\HelloWorldBundle\EventSubscriber\UserFormSubmitSubscriber:
+        tags:
+            # This tag automatically hooks the class into Symfony's event dispatcher.
+            - { name: 'kernel.event_subscriber' }

@@ -34,6 +34,7 @@ before_script:
 # REMOVE: The following block adds necessary dependencies which were expected to be installed through Lodel -->
     - composer require symfony/twig-bundle:^6.4
     - composer require symfony/yaml:^6.4
+    - composer require symfony/form:^6.4
 # <-- REMOVE: End of block to be removed
 
     # Install the Symfony CLI for project management and testing.
@@ -70,6 +71,7 @@ Unit tests:
     interruptible: true  # Allow interruption for new pipeline triggers.
     script:
         # Run PHPUnit tests using Symfony's simple-phpunit wrapper.
+        
         # UNCOMMENT the following line to run all tests, including those in @group lodel
         # - vendor/bin/phpunit
 

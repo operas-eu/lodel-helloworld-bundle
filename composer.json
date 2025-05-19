@@ -8,6 +8,7 @@
     "require": {
         "php": ">=8.1",
         "lodel/lodel": "dev-master",
+        "symfony/form": "6.4.*",
         "symfony/framework-bundle": "6.4.*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/yaml": "6.4.*"
