@@ -1,0 +1,3 @@
+controllers:
+    resource: ../../Controller/ # Modify this path if necessary to match your controller directory
+    type: attribute  # Modify this if necessary to change the route definition method (e.g., 'annotation')

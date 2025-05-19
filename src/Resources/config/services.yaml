@@ -1,0 +1,7 @@
+services:
+    _defaults:
+        autowire: false # Modify this if necessary to enable autowiring for services
+        autoconfigure: false # Modify this if necessary to enable autoconfiguration for services
+        public: false # Modify this if necessary to change service visibility
+
+    Lodel\HelloWorldBundle\Service\HelloWorld: ~ # Modify or remove this example service as needed for your own services
