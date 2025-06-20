@@ -138,3 +138,36 @@ jobs:
                # <-- REMOVE: End of block to be removed      
             # Pour exécuter tous les tests, y compris ceux avec le groupe lodel, décommente ceci :
             #    vendor/bin/phpunit
+
+    sonarqube:
+        name: SonarQube
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
+
+          - name: Set up Java
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'temurin'
+              java-version: '17'
+
+          - name: Run SonarQube scanner 
+            uses: SonarSource/sonarqube-scan-action@v1.2
+            with:
+              projectBaseDir: .
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+            continue-on-error: true
+
+          - name: Show SonarQube debug info
+            run: |
+              echo "SONAR_HOST_URL: ${SONAR_HOST_URL}"
+              echo "Testing if SonarQube is reachable..."
+              curl -I -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/projects/search"
+              sonar-scanner -X || echo "Sonar-scanner failed"
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
