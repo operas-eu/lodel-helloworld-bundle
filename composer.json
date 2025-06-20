@@ -1,0 +1,50 @@
+{
+    "name": "lodel/lodel-helloworld-bundle",
+    "description": "Lodel HelloWorld Bundle",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "lodel/lodel": "dev-master",
+        "symfony/framework-bundle": "6.4.*",
+        "symfony/twig-bundle": "6.4.*",
+        "symfony/yaml": "6.4.*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.8",
+        "phpstan/extension-installer": "^1.2",
+        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpstan/phpstan-symfony": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lodel\\HelloWorldBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lodel\\HelloWorldBundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": false,
+            "phpstan/extension-installer": true
+        }
+    },
+    "repositories": {
+        "lodel/lodel": {
+            "type": "vcs",
+            "url": "git@gitlab.labocleo.org:oe-sect-info/lodel/lodel.git"
+        }
+    }
+}

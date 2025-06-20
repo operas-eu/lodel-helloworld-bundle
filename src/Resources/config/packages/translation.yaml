@@ -1,0 +1,5 @@
+framework:
+    translator:
+        default_path: '%kernel.project_dir%/src/Resources/translations' # Modify this path if you store translations in a different location
+        fallbacks:
+            - en # Modify this to change or add more fallback languages if necessary
