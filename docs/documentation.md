@@ -8,7 +8,7 @@ Generate the documentation:
 
     $ doxygen Doxyfile
 
-This will produce an HTML documentation in the ```docs/html/```.
+This will produce an HTML documentation in the ```doc/html/```.
 You can open ```index.html``` in a web browser to view the documentation.
 
 Whenever you make updates to the code, re-run the above steps to refresh the documentation.

@@ -16,35 +16,35 @@ This bundle is developed as part of the CRAFT-OA Project (https://www.craft-oa.e
 
 To get started with the HelloWorldBundle, clone the repository or install it as a dependency, then enable the bundle in your Lodel project.
 
-For detailed steps, check the [Installation Guide](doc/installation.md).
+For detailed steps, check the [Installation Guide](docs/installation.md).
 
 ## Code Documentation
 
 This bundle uses Doxygen to generate code documentation. Doxygen reads through PHPDoc comments to produce an organized and browsable HTML documentation.
 
-See [Documentation](doc/documentation.md) for more details.
+See [Documentation](docs/documentation.md) for more details.
 
 ## Branches and Examples
 
 The repository is organized into several branches to provide different levels of customization:
 
-- [Base Branch (main)](doc/branches/main_branch.md): This branch contains the bare minimum setup needed for a developer to get started with creating their own features. It includes the necessary structure and configuration to integrate your code into the Lodel 2.0 platform.
+- [Base Branch (main)](docs/branches/main_branch.md): This branch contains the bare minimum setup needed for a developer to get started with creating their own features. It includes the necessary structure and configuration to integrate your code into the Lodel 2.0 platform.
 
-- [Example/Scenario Branches (feature/*)](doc/branches/feature/feature_branches.md): These branches contain a series of practical examples and scenarios that demonstrate how to implement common features and use cases using the HelloWorldBundle. They serve as guides for developers, showing real-world implementations of the bundle in action.
+- [Example/Scenario Branches (feature/*)](docs/branches/feature/feature_branches.md): These branches contain a series of practical examples and scenarios that demonstrate how to implement common features and use cases using the HelloWorldBundle. They serve as guides for developers, showing real-world implementations of the bundle in action.
 
 ## Testing
 
 This bundle includes a basic test suite to ensure that core functionality works as expected.
 
-See [Testing](doc/testing.md) for tips on running tests.
+See [Testing](docs/testing.md) for tips on running tests.
 
 ## Quality
 
-For detailed information on how to check the code quality, please refer to the [Quality Checks](doc/quality.md).
+For detailed information on how to check the code quality, please refer to the [Quality Checks](docs/quality.md).
 
 ## Security
 
-For detailed information on how to check the security of the project, please refer to the [Security Checks](doc/security.md).
+For detailed information on how to check the security of the project, please refer to the [Security Checks](docs/security.md).
 
 ## Continuous Integration
 
