@@ -12,6 +12,9 @@ This document explains the process and tools used to check the code quality of t
 [PHPStan](https://phpstan.org/) performs static analysis of the code, identifying potential errors, bugs, and issues related to types and code quality.
 
 ## Running Quality Checks
+
 To run the quality checks, execute the following command:
 
-    $ make quality
+```bash
+$ make quality
+```

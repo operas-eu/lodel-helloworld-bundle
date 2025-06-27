@@ -3,7 +3,7 @@ import sys
 sys.path.insert(0, os.path.abspath('..'))
 
 project = 'Lodel HelloWorld Bundle'
-author = 'OpenEdition'
+author = 'OpenEdition / CRAFT-OA Project'
 release = '0.1.0'
 
 extensions = [
@@ -15,6 +15,7 @@ extensions = [
 
 source_suffix = {
     '.md': 'markdown',
+    '.rst': 'restructuredtext',
 }
 
 html_theme = 'furo'
