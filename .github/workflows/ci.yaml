@@ -148,7 +148,7 @@ jobs:
     sonarqube:
         name: SonarQube
         runs-on: self-hosted
-        needs: build
+        needs: tests
         steps:
           - name: Checkout repository
             uses: actions/checkout@v3
