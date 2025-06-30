@@ -72,20 +72,22 @@ jobs:
               name: dependencies
 
           - name: Fix permissions for vendor/bin executables
-            run: chmod +x vendor/bin/*
+            run: |
+                  chmod +x vendor/bin/*
+                  mkdir -p build
 
           - name: Run YAML lint
-            run: vendor/bin/yaml-lint src/
+            run: vendor/bin/yaml-lint .
 
           - name: Run PHP-CS-Fixer
-            run: vendor/bin/php-cs-fixer fix
+            run: vendor/bin/php-cs-fixer fix --dry-run
 
           - name: Run PHPStan (with ignoreErrors REMOVE block)
             run: |
              # REMOVE: The following block adds an ignore rule for PHPStan to suppress errors related to missing Lodel classes -->
                   sed -i '/^ *ignoreErrors:/a\    - "#Class Lodel\\\\\\\\Bundle\\\\\\\\.* not found#"' phpstan.neon.dist  
              # <-- REMOVE: End of block to be removed
-              vendor/bin/phpstan analyse
+                  vendor/bin/phpstan analyse
 
     security:
         name: Security Checks
@@ -133,13 +135,16 @@ jobs:
           - name: Run PHPUnit
             run: |
                # REMOVE: The following block excludes all tests in @group lodel for CI purposes only -->
+                  mkdir -p build
                   chmod +x vendor/bin/phpunit
-                  vendor/bin/phpunit --exclude-group lodel
-               # <-- REMOVE: End of block to be removed      
+                  vendor/bin/phpunit --exclude-group lodel --coverage-clover build/coverage.xml
+               # <-- REMOVE: End of block to be removed
             # Pour exécuter tous les tests, y compris ceux avec le groupe lodel, décommente ceci :
-            #    vendor/bin/phpunit
+            #      mkdir -p build
+            #      chmod +x vendor/bin/phpunit
+            #      vendor/bin/phpunit --coverage-clover build/coverage.xml
           
-          - name: Upload converage.xml
+          - name: Upload tests coverage
             uses: actions/upload-artifact@v4
             with:
               name: coverage
@@ -148,6 +153,9 @@ jobs:
     sonarqube:
         name: SonarQube
         runs-on: self-hosted
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         needs: tests
         steps:
           - name: Checkout repository
@@ -159,26 +167,15 @@ jobs:
               distribution: 'temurin'
               java-version: '17'
 
-          - name: Download coverage report
+          - name: Download tests coverage
             uses: actions/download-artifact@v4
             with:
               name: coverage
-              path: build
 
           - name: Run SonarQube scanner 
             uses: SonarSource/sonarqube-scan-action@v1.2
-            with:
-              projectBaseDir: .
-            env:
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }
-
+           
           - name: Show SonarQube debug info
             run: |
-              echo "SONAR_HOST_URL: ${SONAR_HOST_URL}"
-              echo "Testing if SonarQube is reachable..."
               curl -I -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/projects/search"
-              sonar-scanner -X || echo "Sonar-scanner failed"
-            env:
-              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+              sonar-scanner -X

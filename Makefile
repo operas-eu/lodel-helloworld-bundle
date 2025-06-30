@@ -1,7 +1,7 @@
 # Target for checking code quality using PHP-CS-Fixer and PHPStan
 quality:
 	# Runs YAML linting to validate configuration file syntax
-	vendor/bin/yaml-lint src/
+	vendor/bin/yaml-lint .
 	# Runs PHP-CS-Fixer to fix coding standard violations in the codebase
 	vendor/bin/php-cs-fixer fix
 	# Runs PHPStan to analyze the code for potential errors and issues
