@@ -22,5 +22,5 @@ tests:
 	# Runs PHPUnit to execute tests and generates:
 	# - an HTML report in 'build/coverage-html'
 	# - a Clover XML report in 'build/coverage.xml'
-	XDEBUG_MODE=coverage vendor/bin/phpunit
+	XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html build/coverage-html
 .PHONY: tests

@@ -10,56 +10,37 @@ This bundle is developed as part of the CRAFT-OA Project (https://www.craft-oa.e
 
 ⚠️ **This bundle requires Lodel 2.0 (which may not yet be available)**. For more information, visit: [Lodel 2.0 Announcement](https://leo.hypotheses.org/22760) ⚠️
 
-📅 _Last updated: June 17, 2025_
+To provide a clear preview of what the bundle does, a video demonstration is provided. This demo aims to give a realistic preview of the bundle in action, despite the temporary unavailability of the Lodel 2.0 codebase.
 
-## Installation
+📽️ **Video Demonstration**:
+A demonstration walkthrough is available on the [Nakala Platform](XXX). This video includes:
 
-To get started with the HelloWorldBundle, clone the repository or install it as a dependency, then enable the bundle in your Lodel project.
+- A preview of a Lodel 2.0 platform
+- The installation of the HelloWorldBundle
+- Confirmation that, once installed, the bundle does not introduce any visible changes in the public site or the back office
+- The activation of one feature example branch from the bundle
+- The visual result of this activated feature within the Lodel platform
 
-For detailed steps, check the [Installation Guide](doc/installation.md).
+📅 _Last updated: June 27, 2025_
 
-## Code Documentation
+## 📚 Documentation
 
-This bundle uses Doxygen to generate code documentation. Doxygen reads through PHPDoc comments to produce an organized and browsable HTML documentation.
+Full documentation is available on **Read the Docs**:
 
-See [Documentation](doc/documentation.md) for more details.
+- [Installation Guide](https://lodel-helloworld-bundle.readthedocs.io/en/latest/installation.html)
+- [Branches & Examples](https://lodel-helloworld-bundle.readthedocs.io/en/latest/branches/branches.html)
+- [Developer documentation](https://lodel-helloworld-bundle.readthedocs.io/en/latest/developer.html)
+- [Testing](https://lodel-helloworld-bundle.readthedocs.io/en/latest/testing.html)
+- [Quality](https://lodel-helloworld-bundle.readthedocs.io/en/latest/quality.html)
+- [Security](https://lodel-helloworld-bundle.readthedocs.io/en/latest/security.html)
+- [Continuous Integration](https://lodel-helloworld-bundle.readthedocs.io/en/latest/ci.html)
 
-## Branches and Examples
+## Contributors
 
-The repository is organized into several branches to provide different levels of customization:
+This project has been developed at **OpenEdition Center**, a french CNRS Support and Research Unit (UAR 2504) associated with Aix-Marseille University, the EHESS and Avignon University.
 
-- [Base Branch (main)](doc/branches/main_branch.md): This branch contains the bare minimum setup needed for a developer to get started with creating their own features. It includes the necessary structure and configuration to integrate your code into the Lodel 2.0 platform.
+For detailed copyright and license information, please refer to the [LICENSE](https://github.com/operas-eu/lodel-helloworld-bundle/blob/main/LICENSE) file that was distributed with this source code.
 
-- [Example/Scenario Branches (feature/*)](doc/branches/feature/feature_branches.md): These branches contain a series of practical examples and scenarios that demonstrate how to implement common features and use cases using the HelloWorldBundle. They serve as guides for developers, showing real-world implementations of the bundle in action.
-
-## Testing
-
-This bundle includes a basic test suite to ensure that core functionality works as expected.
-
-See [Testing](doc/testing.md) for tips on running tests.
-
-## Quality
-
-For detailed information on how to check the code quality, please refer to the [Quality Checks](doc/quality.md).
-
-## Security
-
-For detailed information on how to check the security of the project, please refer to the [Security Checks](doc/security.md).
-
-## Continuous Integration
-
-This project uses [GitHub Actions](https://github.com/features/actions) for continuous integration.
-
-Each commit and pull request triggers an automated workflow that checks code formatting, performs static analysis, and validates YAML configuration files
-
-This helps ensure code quality and prevents regressions early in the development process.
-
-See the [ci.yaml](.github/workflows/ci.yaml) file for details.
-
-⚠️ To allow the CI to run successfully even though Lodel 2.0 is not yet publicly available, the workflow includes temporary blocks and placeholder code. These parts are clearly marked within the CI script and will need to be removed once Lodel 2.0 is released and installable via Composer.
-
-## License
-
-This project is licensed under the GNU General Public License v3.0.
-
-See the [LICENSE](LICENSE) file for details.
+- **João Martins**  - OpenEdition, Protisvalor - Lead Developer (05/2024-07/2025)
+- **Jean-Christophe Souplet** - OpenEdition - CRAFT-OA T4.2 Co-Task Leader and Lodel Data Interoperability Bundle Project Manager
+- **Nicolas Vernot Cortes** - OpenEdition - Lodel 2.0 Lead Developer & Bundle Integration & Architecture
