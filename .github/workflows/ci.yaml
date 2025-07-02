@@ -154,7 +154,7 @@ jobs:
         name: SonarQube
         runs-on: self-hosted
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          #SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         needs: tests
@@ -176,7 +176,7 @@ jobs:
           - name: Run SonarQube scanner 
             uses: SonarSource/sonarqube-scan-action@v1.2
            
-          - name: Show SonarQube debug info
-            run: |
-              curl -I -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/projects/search"
-              sonar-scanner -X
+         # - name: Show SonarQube debug info
+          #  run: |
+          #    curl -I -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/projects/search"
+          #    sonar-scanner -X
