@@ -154,7 +154,7 @@ jobs:
         name: SonarQube
         runs-on: self-hosted
         env:
-          #SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         needs: tests
