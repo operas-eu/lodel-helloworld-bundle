@@ -173,14 +173,20 @@ jobs:
               name: coverage
               path: build
           
-          - name: Verify coverage paths
-            run: head -20 build/coverage.xml
+          - name: Verify paths
+            run: |
+              head -20 build/coverage.xml
+              head -20 build/phpunit.xml
+          
+          - name: Fix paths
+            run: |
+              sed -i "s|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g" build/coverage.xml
+              sed -i 's|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g' build/phpunit.xml
 
-          - name: Fix coverage paths
-            run: sed -i "s|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g" build/coverage.xml
-
-          - name: Verify fixed coverage paths
-            run: head -20 build/coverage.xml
+          - name: Verify fixed paths
+            run: |
+              head -20 build/coverage.xml
+              head -20 build/phpunit.xml
 
           - name: Run SonarQube scanner 
             uses: SonarSource/sonarqube-scan-action@v1.2
