@@ -72,9 +72,7 @@ jobs:
               name: dependencies
 
           - name: Fix permissions for vendor/bin executables
-            run: |
-                  chmod +x vendor/bin/*
-                  mkdir -p build
+            run: chmod +x vendor/bin/* 
 
           - name: Run YAML lint
             run: vendor/bin/yaml-lint .
@@ -115,6 +113,8 @@ jobs:
     tests:
         name: Unit Tests
         runs-on: ubuntu-latest
+        env:
+          XDEBUG_MODE: coverage
         needs: build
         steps:
           - name: Checkout repository
@@ -126,6 +126,7 @@ jobs:
               php-version: '8.1'
               extensions: intl, pcntl, zip
               tools: composer
+              coverage: xdebug
 
           - name: Download dependencies
             uses: actions/download-artifact@v4
@@ -135,25 +136,22 @@ jobs:
           - name: Run PHPUnit
             run: |
                # REMOVE: The following block excludes all tests in @group lodel for CI purposes only -->
-                  mkdir -p build
                   chmod +x vendor/bin/phpunit
-                  vendor/bin/phpunit --exclude-group lodel --coverage-clover build/coverage.xml
+                  vendor/bin/phpunit --exclude-group lodel
                # <-- REMOVE: End of block to be removed
             # To run all tests, including the "lodel" group, uncomment the lines below :
-            #      mkdir -p build
             #      chmod +x vendor/bin/phpunit
-            #      vendor/bin/phpunit --coverage-clover build/coverage.xml
-          
+            #      vendor/bin/phpunit
+
           - name: Upload tests coverage
             uses: actions/upload-artifact@v4
             with:
               name: coverage
-              path: build/coverage.xml
+              path: build
 
     sonarqube:
         name: SonarQube
-        runs-on: ubuntu-latest
-        # runs-on: self-hosted
+        runs-on: self-hosted
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
@@ -173,6 +171,16 @@ jobs:
             uses: actions/download-artifact@v4
             with:
               name: coverage
+              path: build
           
+          - name: Verify coverage paths
+            run: head -20 build/coverage.xml
+
+          - name: Fix coverage paths
+            run: sed -i "s|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g" build/coverage.xml
+
+          - name: Verify fixed coverage paths
+            run: head -20 build/coverage.xml
+
           - name: Run SonarQube scanner 
             uses: SonarSource/sonarqube-scan-action@v1.2
