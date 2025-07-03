@@ -139,7 +139,7 @@ jobs:
                   chmod +x vendor/bin/phpunit
                   vendor/bin/phpunit --exclude-group lodel --coverage-clover build/coverage.xml
                # <-- REMOVE: End of block to be removed
-            # Pour exécuter tous les tests, y compris ceux avec le groupe lodel, décommente ceci :
+            # To run all tests, including the "lodel" group, uncomment the lines below :
             #      mkdir -p build
             #      chmod +x vendor/bin/phpunit
             #      vendor/bin/phpunit --coverage-clover build/coverage.xml
@@ -152,7 +152,8 @@ jobs:
 
     sonarqube:
         name: SonarQube
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
+        # runs-on: self-hosted
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
@@ -175,8 +176,3 @@ jobs:
           
           - name: Run SonarQube scanner 
             uses: SonarSource/sonarqube-scan-action@v1.2
-           
-         # - name: Show SonarQube debug info
-          #  run: |
-          #    curl -I -u $SONAR_TOKEN: "$SONAR_HOST_URL/api/projects/search"
-          #    sonar-scanner -X
