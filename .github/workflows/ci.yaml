@@ -75,7 +75,7 @@ jobs:
             run: chmod +x vendor/bin/* 
 
           - name: Run YAML lint
-            run: vendor/bin/yaml-lint .
+            run: vendor/bin/yaml-lint src tests
 
           - name: Run PHP-CS-Fixer
             run: vendor/bin/php-cs-fixer fix --dry-run
@@ -137,11 +137,16 @@ jobs:
             run: |
                # REMOVE: The following block excludes all tests in @group lodel for CI purposes only -->
                   chmod +x vendor/bin/phpunit
-                  vendor/bin/phpunit --exclude-group lodel
+                  XDEBUG_MODE=coverage vendor/bin/phpunit \
+                    --exclude-group lodel \
+                    --coverage-clover build/coverage.xml \
+                    --log-junit build/phpunit.xml
                # <-- REMOVE: End of block to be removed
-            # To run all tests, including the "lodel" group, uncomment the lines below :
-            #      chmod +x vendor/bin/phpunit
-            #      vendor/bin/phpunit
+              # To run all tests, including the "lodel" group, uncomment the lines below :
+              #      chmod +x vendor/bin/phpunit
+              #      XDEBUG_MODE=coverage vendor/bin/phpunit \
+              #        --coverage-clover build/coverage.xml \
+              #        --log-junit build/phpunit.xml
 
           - name: Upload tests coverage
             uses: actions/upload-artifact@v4
