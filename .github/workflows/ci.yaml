@@ -72,20 +72,20 @@ jobs:
               name: dependencies
 
           - name: Fix permissions for vendor/bin executables
-            run: chmod +x vendor/bin/*
+            run: chmod +x vendor/bin/* 
 
           - name: Run YAML lint
-            run: vendor/bin/yaml-lint src/
+            run: vendor/bin/yaml-lint src tests
 
           - name: Run PHP-CS-Fixer
-            run: vendor/bin/php-cs-fixer fix
+            run: vendor/bin/php-cs-fixer fix --dry-run
 
           - name: Run PHPStan (with ignoreErrors REMOVE block)
             run: |
              # REMOVE: The following block adds an ignore rule for PHPStan to suppress errors related to missing Lodel classes -->
                   sed -i '/^ *ignoreErrors:/a\    - "#Class Lodel\\\\\\\\Bundle\\\\\\\\.* not found#"' phpstan.neon.dist  
              # <-- REMOVE: End of block to be removed
-              vendor/bin/phpstan analyse
+                  vendor/bin/phpstan analyse
 
     security:
         name: Security Checks
@@ -113,6 +113,8 @@ jobs:
     tests:
         name: Unit Tests
         runs-on: ubuntu-latest
+        env:
+          XDEBUG_MODE: coverage
         needs: build
         steps:
           - name: Checkout repository
@@ -124,6 +126,7 @@ jobs:
               php-version: '8.1'
               extensions: intl, pcntl, zip
               tools: composer
+              coverage: xdebug
 
           - name: Download dependencies
             uses: actions/download-artifact@v4
@@ -134,7 +137,61 @@ jobs:
             run: |
                # REMOVE: The following block excludes all tests in @group lodel for CI purposes only -->
                   chmod +x vendor/bin/phpunit
-                  vendor/bin/phpunit --exclude-group lodel
-               # <-- REMOVE: End of block to be removed      
-            # Pour exécuter tous les tests, y compris ceux avec le groupe lodel, décommente ceci :
-            #    vendor/bin/phpunit
+                  XDEBUG_MODE=coverage vendor/bin/phpunit \
+                    --exclude-group lodel \
+                    --coverage-clover build/coverage.xml \
+                    --log-junit build/phpunit.xml
+               # <-- REMOVE: End of block to be removed
+              # To run all tests, including the "lodel" group, uncomment the lines below :
+              #      chmod +x vendor/bin/phpunit
+              #      XDEBUG_MODE=coverage vendor/bin/phpunit \
+              #        --coverage-clover build/coverage.xml \
+              #        --log-junit build/phpunit.xml
+
+          - name: Upload tests coverage
+            uses: actions/upload-artifact@v4
+            with:
+              name: coverage
+              path: build
+
+    sonarqube:
+        name: SonarQube
+        runs-on: self-hosted
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        needs: tests
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
+
+          - name: Set up Java
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'temurin'
+              java-version: '17'
+
+          - name: Download tests coverage
+            uses: actions/download-artifact@v4
+            with:
+              name: coverage
+              path: build
+          
+          - name: Verify paths
+            run: |
+              head -20 build/coverage.xml
+              head -20 build/phpunit.xml
+          
+          - name: Fix paths
+            run: |
+              sed -i "s|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g" build/coverage.xml
+              sed -i 's|/home/runner/work/lodel-helloworld-bundle/lodel-helloworld-bundle/||g' build/phpunit.xml
+
+          - name: Verify fixed paths
+            run: |
+              head -20 build/coverage.xml
+              head -20 build/phpunit.xml
+
+          - name: Run SonarQube scanner 
+            uses: SonarSource/sonarqube-scan-action@v1.2
