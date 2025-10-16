@@ -13,7 +13,7 @@ This bundle is developed as part of the CRAFT-OA Project (https://www.craft-oa.e
 To provide a clear preview of what the bundle does, a video demonstration is provided. This demo aims to give a realistic preview of the bundle in action, despite the temporary unavailability of the Lodel 2.0 codebase.
 
 📽️ **Video Demonstration**:
-A demonstration walkthrough is available on the [Nakala Platform](XXX). This video includes:
+A demonstration walkthrough is available on the [Nakala Platform](https://api.nakala.fr/embed/10.34847/nkl.0d599t8f/735937ff99910cbecb77f635574c93e2e8e00e10). This video includes:
 
 - A preview of a Lodel 2.0 platform
 - The installation of the HelloWorldBundle
